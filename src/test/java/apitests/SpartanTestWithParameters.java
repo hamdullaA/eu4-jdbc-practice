@@ -49,6 +49,7 @@ public class SpartanTestWithParameters {
         Response response = given().accept(ContentType.JSON)
                 .and().pathParam("id", 500)
                 .when().get("/api/spartans/{id}");
+        //verify
 
         assertEquals(response.statusCode(),404);
 
