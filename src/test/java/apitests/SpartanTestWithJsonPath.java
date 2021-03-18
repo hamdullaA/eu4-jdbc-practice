@@ -1,4 +1,5 @@
 package apitests;
+
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
@@ -9,11 +10,13 @@ import utilities.ConfigurationReader;
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 import static org.testng.Assert.assertEquals;
+
 public class SpartanTestWithJsonPath {
     @BeforeClass
-    public void beforeclass(){
-        baseURI= ConfigurationReader.get("spartan_api_url");
+    public void beforeclass() {
+        baseURI = ConfigurationReader.get("spartan_api_url");
     }
+
     /*
           Given accept type is json
           And path param spartan id is 11
@@ -26,21 +29,21 @@ public class SpartanTestWithJsonPath {
               "phone": 7959094216
     */
     @Test
-    public void test1(){
+    public void test1() {
 
-        Response response =  given().accept(ContentType.JSON)
-                .and().pathParam("id",11)
+        Response response = given().accept(ContentType.JSON)
+                .and().pathParam("id", 11)
                 .when().get("/api/spartans/{id}");
 
-        assertEquals(response.statusCode(),200);
-        assertEquals(response.contentType(),"application/json;charset=UTF-8");
+        assertEquals(response.statusCode(), 200);
+        assertEquals(response.contentType(), "application/json;charset=UTF-8");
 
         //verify id and name with path()
         int id = response.path("id");
         String name = response.path("name");
 
-        assertEquals(id,11);
-        assertEquals(name,"Nona");
+        assertEquals(id, 11);
+        assertEquals(name, "Nona");
 
         //assign response to jsonpath
         JsonPath jsonPath = response.jsonPath();
@@ -50,21 +53,16 @@ public class SpartanTestWithJsonPath {
         String gender = jsonPath.getString("gender");
         long phone = jsonPath.getLong("phone");
 
-
         //print the values
         System.out.println("idJson = " + idJson);
         System.out.println("nameJson = " + nameJson);
         System.out.println("gender = " + gender);
         System.out.println("phone = " + phone);
-
         //verification
-        assertEquals(idJson,11);
-        assertEquals(nameJson,"Nona");
-        assertEquals(gender,"Female");
-        assertEquals(phone,7959094216l);
-
-
-
+        assertEquals(idJson, 11);
+        assertEquals(nameJson, "Nona");
+        assertEquals(gender, "Female");
+        assertEquals(phone, 7959094216l);
     }
 
 }
