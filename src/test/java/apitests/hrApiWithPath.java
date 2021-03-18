@@ -50,6 +50,28 @@ public class hrApiWithPath {
             System.out.println(regionID);
             assertEquals(regionID,2);
         }
+
+
+
     }
+    @Test
+    public void test2(){
+        Response response = given().accept(ContentType.JSON)
+                .and().queryParam("q","{\"job_id\":\"IT_PROG\"}")
+                .when().get("/employees");
+
+        assertEquals(response.statusCode(),200);
+        assertEquals(response.contentType(),"application/json");
+        assertTrue(response.body().asString().contains("IT_PROG"));
+
+        //makes sure we have only IT_PROG as a job_id
+        List<String> jobIDs = response.path("items.job_id");
+
+        for (String jobID : jobIDs) {
+            System.out.println("jobID = " + jobID);
+            assertEquals(jobID,"IT_PROG");
+        }
+    }
+
 
 }
