@@ -46,6 +46,15 @@ public class SpartanTestWithParameters {
      */
     @Test
     public void getSpartanID_Negative_PathParam(){
+        Response response = given().accept(ContentType.JSON)
+                .and().pathParam("id", 500)
+                .when().get("/api/spartans/{id}");
+
+        assertEquals(response.statusCode(),404);
+
+        assertEquals(response.contentType(),"application/json;charset=UTF-8");
+
+        assertTrue(response.body().asString().contains("Spartan Not Found"));
 
 
 
