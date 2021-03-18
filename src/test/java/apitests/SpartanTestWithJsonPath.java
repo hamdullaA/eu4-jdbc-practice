@@ -58,11 +58,13 @@ public class SpartanTestWithJsonPath {
         System.out.println("nameJson = " + nameJson);
         System.out.println("gender = " + gender);
         System.out.println("phone = " + phone);
+
         //verification
         assertEquals(idJson, 11);
         assertEquals(nameJson, "Nona");
         assertEquals(gender, "Female");
         assertEquals(phone, 7959094216l);
+
     }
 
 }
