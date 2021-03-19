@@ -33,6 +33,40 @@ public class HamcrestMatchersApiTest {
                 "gender", equalTo("Female"),
                 "phone", equalTo(1938695106));
 
+
+    }
+
+    @Test
+    public void teacherData() {
+        given().accept(ContentType.JSON)
+                .and().pathParam("id", 8261)
+                .when().log().all().get("http://api.cybertektraining.com/teacher/{id}")
+                .then().statusCode(200)
+                .and().contentType(equalTo("application/json;charset=UTF-8"))
+                .and().header("Content-Length", equalTo("240"))
+                .and().header("Connection", equalTo("Keep-Alive"))
+                .and().header("Date", notNullValue())
+                .and().headers("Content-Length", equalTo("240"),
+                "Connection", equalTo("Keep-Alive"))
+                .and().assertThat().body("teachers.firstName[0]", equalTo("James"),
+                "teachers.lastName[0]", equalTo("Bond"),
+                "teachers.gender[0]", equalTo("Male"))
+                .log().all()
+        ;
+
+    }
+
+    @Test
+    public void teachersWithDepartments() {
+
+        given().accept(ContentType.JSON)
+                .and().pathParam("name", "Computer")
+                .when().log().all().get("http://api.cybertektraining.com/teacher/department/{name}")
+                .then().statusCode(200).and()
+                .contentType(equalTo("application/json;charset=UTF-8")).and()
+                .body("teachers.firstName", hasItems("Alexander", "Marteen"));
+
+
     }
 
 }
