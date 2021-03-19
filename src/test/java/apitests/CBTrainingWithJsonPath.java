@@ -1,4 +1,5 @@
 package apitests;
+
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
@@ -9,21 +10,22 @@ import utilities.ConfigurationReader;
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 import static org.testng.Assert.assertEquals;
+
 public class CBTrainingWithJsonPath {
 
     @BeforeClass
-    public void beforeclass(){
-        baseURI= ConfigurationReader.get("cbt_api_url");
+    public void beforeclass() {
+        baseURI = ConfigurationReader.get("cbt_api_url");
     }
 
     @Test
-    public void test1(){
+    public void test1() {
         Response response = given().accept(ContentType.JSON)
                 .and().pathParam("id", 20202)
                 .when().get("/student/{id}");
 
         //verify status code
-        assertEquals(response.statusCode(),200);
+        assertEquals(response.statusCode(), 200);
 
         //assign response to jsonpath
         JsonPath jsonPath = response.jsonPath();
@@ -41,18 +43,18 @@ public class CBTrainingWithJsonPath {
         //get me city and zipcode, do assertion
         String city = jsonPath.getString("students.company[0].address.city");
         System.out.println("city = " + city);
-        assertEquals(city,"Chicago");
+        assertEquals(city, "Chicago");
 
         String zipCode = jsonPath.getString("students.company[0].address.zipCode");
         System.out.println("zipCode = " + zipCode);
-        assertEquals(zipCode,"60606");
+        assertEquals(zipCode, "60606");
 
         String firstname2 = jsonPath.getString("students.firstName");
         System.out.println("firstname2 = " + firstname2);
-       String firstname3 =response.path("students.firstName");
+        String firstname3 = response.path("students.firstName");
         System.out.println("firstname3 = " + firstname3);
 
-        String zipCode2= response.path("students.company[0].address.zipCode");
+        String zipCode2 = response.path("students.company[0].address.zipCode");
         System.out.println("zipCode2 = " + zipCode2);
 
     }
