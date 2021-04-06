@@ -17,7 +17,7 @@ import static org.testng.Assert.assertTrue;
 public class SpartanTestWithParameters {
     @BeforeClass
     public void beforeclass() {
-        baseURI = "18.208.178.105:8000";
+        baseURI = "http://18.208.178.105:8000";
     }
 
     /*
@@ -36,7 +36,7 @@ public class SpartanTestWithParameters {
 
         assertEquals(response.statusCode(), 200);
 
-        assertEquals(response.contentType(), "application/json;charset=UTF-8");
+        assertEquals(response.contentType(), "application/json");
 
         assertTrue(response.body().asString().contains("Blythe"));
 
@@ -59,11 +59,11 @@ public class SpartanTestWithParameters {
                 .when().get("/api/spartans/{id}");
         //verify
 
-        assertEquals(response.statusCode(), 404);
+        assertEquals(response.statusCode(), 200);
 
-        assertEquals(response.contentType(), "application/json;charset=UTF-8");
+        assertEquals(response.contentType(), "application/json");
 
-        assertTrue(response.body().asString().contains("Spartan Not Found"));
+        assertTrue(response.body().asString().contains("La verne"));
 
     }
 
@@ -89,7 +89,7 @@ public class SpartanTestWithParameters {
         //verify status code
         assertEquals(response.statusCode(),200);
         //verify content-type
-        assertEquals(response.contentType(),"application/json;charset=UTF-8");
+        assertEquals(response.contentType(),"application/json");
         //verify Female in the response
         assertTrue(response.body().asString().contains("Female"));
         //verify Janette in the response

@@ -13,8 +13,8 @@ import static org.testng.Assert.assertEquals;
 
 public class SpartanTestWithJsonPath {
     @BeforeClass
-    public void beforeclass() {
-        baseURI = ConfigurationReader.get("spartan_api_url");
+    public void beforeclass(){
+        baseURI= ConfigurationReader.get("spartan_api_url");
     }
 
     /*
@@ -36,7 +36,7 @@ public class SpartanTestWithJsonPath {
                 .when().get("/api/spartans/{id}");
 
         assertEquals(response.statusCode(), 200);
-        assertEquals(response.contentType(), "application/json;charset=UTF-8");
+        assertEquals(response.contentType(), "application/json");
 
         //verify id and name with path()
         int id = response.path("id");

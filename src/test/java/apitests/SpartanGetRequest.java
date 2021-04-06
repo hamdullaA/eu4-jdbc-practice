@@ -24,16 +24,16 @@ public class SpartanGetRequest {
 
     @Test
     public void test2(){
-        Response response = when().get(spartanurl + "/api/spartans/3");
+        Response response = when().get(spartanurl + "/api/spartans/4");
 
         //verify status code
         Assert.assertEquals(response.statusCode(),200);
 
         //verify content type
-        Assert.assertEquals(response.contentType(),"application/json;charset=UTF-8");
+        Assert.assertEquals(response.contentType(),"application/json");
 
         //verify Fidole
-        Assert.assertTrue(response.body().asString().contains("Fidole"));
+        Assert.assertTrue(response.body().asString().contains("Paige"));
     }
     /*
         Given no headers provided
@@ -47,7 +47,7 @@ public class SpartanGetRequest {
     @Test
     public void test3(){
         //request
-        Response response=when().get(spartanurl+"/api/hell0");
+        Response response=when().get(spartanurl+"/api/hello");
         //verify code
         Assert.assertEquals(response.statusCode(),"200");
         //verify content-type

@@ -15,7 +15,7 @@ import static org.testng.Assert.assertEquals;
 public class SpartanTestWithPath {
     @BeforeClass
     public void beforeclass() {
-        baseURI = "18.208.178.105:8000";
+        baseURI = "http://18.208.178.105:8000";
     }
 
     /*
@@ -33,10 +33,10 @@ public class SpartanTestWithPath {
     @Test
     public void getOneSpartan_path() {
         Response response = given().accept(ContentType.JSON)
-                .and().queryParam("id", 10)
+                .and().pathParam("id", 10)
                 .when().get("/api/spartans/{id}");
         assertEquals(response.statusCode(),200);
-        assertEquals(response.contentType(),"application/json;charset=UTF-8");
+        assertEquals(response.contentType(),"application/json");
 
         //response.prettyPrint();
         //printing each key value in the json body/payload
@@ -69,7 +69,7 @@ public class SpartanTestWithPath {
 
         assertEquals(response.statusCode(),200);
         //verify content type
-        assertEquals(response.getHeader("Content-Type"),"application/json;charset=UTF-8");
+        assertEquals(response.getHeader("Content-Type"),"application/json");
 
         int firstId = response.path("id[0]");
         System.out.println("firstId = " + firstId);
